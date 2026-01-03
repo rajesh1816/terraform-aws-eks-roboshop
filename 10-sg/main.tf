@@ -108,7 +108,7 @@ resource "aws_security_group_rule" "eks_control_plane_allow_bastion" {
 }
 
 # eks_control_plane  outbound rule
-resource "aws_security_group_rule" "ingress_alb_egress_all" {
+resource "aws_security_group_rule" "eks_control_plane_egress_all" {
   type              = "egress"
   from_port         = 0
   to_port           = 0
