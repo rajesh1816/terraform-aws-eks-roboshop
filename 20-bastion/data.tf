@@ -2,10 +2,6 @@ data "aws_ssm_parameter" "public_subnets_ids" {
   name = "/${var.project}/${var.environment}/public-subnet-ids"
 }
 
-locals {
-  public_subnets = split(",", data.aws_ssm_parameter.public_subnets.value)
-}
-
 data "aws_ami" "joindevops" {
   most_recent = true
   owners      = ["973714476881"]
