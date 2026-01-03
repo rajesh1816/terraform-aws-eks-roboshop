@@ -67,7 +67,7 @@ resource "aws_security_group_rule" "ingress_alb_egress_all" {
   to_port           = 0
   protocol          = "-1"          # all protocols
   cidr_blocks       = ["0.0.0.0/0"] # allow to anywhere
-  security_group_id = module.frontend_alb.sg_id
+  security_group_id = module.ingress_alb.sg_id
 }
 
 
