@@ -1,17 +1,20 @@
-resource "aws_instance" "bastion_host" {
-  ami           = data.aws_ami.joindevops.id
-  instance_type = var.instance_type
+resource "aws_instance" "bastion" {
+  ami           = local.ami_id
+  instance_type = "t3.micro"
+  vpc_security_group_ids = [local.bastion_sg_id]
+  subnet_id = local.public_subnet_ids
 
-  subnet_id              = local.public_subnets[0]
-  vpc_security_group_ids = [data.aws_ssm_parameter.bastion_sg_id.value]
-
-  associate_public_ip_address = true
-
+  # need more for terraform
+  root_block_device {
+    volume_size = 50
+    volume_type = "gp3" # or "gp2", depending on your preference
+  }
+  user_data = file("bastion.sh")
+  iam_instance_profile = "TerraformAdmin"
   tags = merge(
-    var.bastion_host_tags,
     local.common_tags,
     {
-      Name = "${var.project}-${var.environment}-bastion"
+        Name = "${var.project}-${var.environment}-bastion"
     }
   )
 }

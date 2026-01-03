@@ -1,4 +1,4 @@
-data "aws_ssm_parameter" "public_subnets" {
+data "aws_ssm_parameter" "public_subnets_ids" {
   name = "/${var.project}/${var.environment}/public-subnet-ids"
 }
 
