@@ -94,8 +94,8 @@ resource "aws_security_group_rule" "eks_control_plane_allow_eks_nodes" {
 
 
 #kubectl talks to the Kubernetes API Server
-T#he API Server listens on HTTPS (443)
-Yo#ur bastion host runs kubectl
+#The API Server listens on HTTPS (443)
+#Your bastion host runs kubectl
 #So bastion must be allowed to reach control plane on 443 =  Bastion → HTTPS 443 → EKS Control Plane
 # eks control plane allow all traffic from worker nodes
 resource "aws_security_group_rule" "eks_control_plane_allow_bastion" {

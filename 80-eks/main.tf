@@ -30,8 +30,9 @@ module "eks" {
   create_node_security_group = false
   create_security_group      = false
 
+  security_group_id                 = local.eks_control_plane_sg_id
   node_security_group_id            = local.eks_nodes_sg_id
-  cluster_primary_security_group_id =  local.eks_control_plane_sg_id
+  
 
   # EKS Managed Node Group(s)
   eks_managed_node_groups = {
@@ -43,6 +44,12 @@ module "eks" {
       min_size     = 1
       max_size     = 5
       desired_size = 1
+
+      iam_role_additional_policies = {
+          ebs  = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+          efs  = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
+          elb  = "arn:aws:iam::aws:policy/AmazonEKSLoadBalancingPolicy"
+    }
     }
   }
 
