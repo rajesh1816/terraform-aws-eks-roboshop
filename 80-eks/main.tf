@@ -6,15 +6,15 @@ module "eks" {
   kubernetes_version = "1.32"
 
   addons = {
-    coredns                = {}
+    coredns = {}
     eks-pod-identity-agent = {
       before_compute = true
     }
-    kube-proxy             = {}
-    vpc-cni                = {
+    kube-proxy = {}
+    vpc-cni = {
       before_compute = true
     }
-    metrics-server         = {}
+    metrics-server = {}
   }
 
   # Optional
@@ -24,15 +24,15 @@ module "eks" {
   enable_cluster_creator_admin_permissions = true
 
   vpc_id                   = local.vpc_id
-  subnet_ids               = local.private_subnet_ids
-  control_plane_subnet_ids = local.private_subnet_ids
+  subnet_ids               = [local.private_subnet_ids]
+  control_plane_subnet_ids = [local.private_subnet_ids]
 
   create_node_security_group = false
   create_security_group      = false
 
-  security_group_id                 = local.eks_control_plane_sg_id
-  node_security_group_id            = local.eks_nodes_sg_id
-  
+  security_group_id      = local.eks_control_plane_sg_id
+  node_security_group_id = local.eks_nodes_sg_id
+
 
   # EKS Managed Node Group(s)
   eks_managed_node_groups = {
@@ -46,10 +46,10 @@ module "eks" {
       desired_size = 1
 
       iam_role_additional_policies = {
-          ebs  = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-          efs  = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
-          elb  = "arn:aws:iam::aws:policy/AmazonEKSLoadBalancingPolicy"
-    }
+        ebs = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+        efs = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
+        elb = "arn:aws:iam::aws:policy/AmazonEKSLoadBalancingPolicy"
+      }
     }
   }
 
