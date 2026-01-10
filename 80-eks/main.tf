@@ -52,29 +52,28 @@ module "eks" {
       }
     }
 
-    green = {
-      # Starting on 1.30, AL2023 is the default AMI type for EKS managed node groups
-      ami_type       = "AL2023_x86_64_STANDARD"
-      instance_types = ["t3.small"]
+    # green = {
+    #   # Starting on 1.30, AL2023 is the default AMI type for EKS managed node groups
+    #   ami_type       = "AL2023_x86_64_STANDARD"
+    #   instance_types = ["t3.small"]
 
-      min_size     = 1
-      max_size     = 5
-      desired_size = 1
+    #   min_size     = 1
+    #   max_size     = 5
+    #   desired_size = 1
 
-      iam_role_additional_policies = {
-        ebs = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-        efs = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
-        elb = "arn:aws:iam::aws:policy/AmazonEKSLoadBalancingPolicy"
-      }
+    #   iam_role_additional_policies = {
+    #     ebs = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+    #     efs = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
+    #     elb = "arn:aws:iam::aws:policy/AmazonEKSLoadBalancingPolicy"
+    #   }
 
-      taints = {
-        upgrade = {
-          key = "upgrade"
-          value  = "true"
-          effect = "NO_SCHEDULE"
-        }
-      } 
-    }
+    #   taints = {
+    #     upgrade = {
+    #       key = "upgrade"
+    #       value  = "true"
+    #       effect = "NO_SCHEDULE"
+    #     }
+    #   } 
   }
 
   tags = merge(
