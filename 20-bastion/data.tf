@@ -3,12 +3,12 @@ data "aws_ssm_parameter" "public_subnet_ids" {
 }
 
 data "aws_ami" "joindevops" {
-  owners      = ["973714476881"]
+  owners      = ["887363634632"]
   most_recent = true
 
   filter {
     name   = "name"
-    values = ["RHEL-9-DevOps-Practice"]
+    values = ["Redhat-9-DevOps-Practice"]
   }
 
   filter {
