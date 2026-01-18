@@ -3,7 +3,7 @@ data "aws_ssm_parameter" "public_subnet_ids" {
 }
 
 data "aws_ami" "joindevops" {
-  owners      = ["887363634632"]
+  owners      = ["973714476881"]
   most_recent = true
 
   filter {
