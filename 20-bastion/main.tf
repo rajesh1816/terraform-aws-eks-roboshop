@@ -4,6 +4,15 @@ resource "aws_instance" "bastion" {
   vpc_security_group_ids = [local.bastion_sg_id]
   subnet_id = local.public_subnet_ids
 
+  instance_market_options {
+    market_type = "spot"
+
+    spot_options {
+      spot_instance_type             = "one-time"
+      instance_interruption_behavior = "terminate"
+    }
+  }
+
   # need more for terraform
   root_block_device {
     volume_size = 50
